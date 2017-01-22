@@ -77,6 +77,12 @@ func NewEngine() {
 		os.Exit(1)
 	}
 
+	if UseSQLite3 {
+		//https://github.com/mattn/go-sqlite3/issues/274#issuecomment-191597862
+		sqlog.Info("sqlite3_concurrency_patched@4.1.1 => SetMaxOpenConns(1)")
+		x.SetMaxOpenConns(1)
+	}
+
 	err = SetEngine(x)
 
 	if err != nil {
